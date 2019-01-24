@@ -1,5 +1,5 @@
 const HONEYCOMB_API_KEY = "e841bedc1eb9ffd93c4c958b74e2d877";
-const HONEYCOMB_DATASET = "dryrun-workshop";
+const HONEYCOMB_DATASET = "prerun-workshop";
 
 const beeline = require("honeycomb-beeline")({
   writeKey: HONEYCOMB_API_KEY,
@@ -98,25 +98,25 @@ app.post('/', async(req, res) => {
 });
 
 // = HELPER ========================================================
-// Identifies hashtags and username-like strings. Replaces hashtags
-// with links to a Twitter search for the found hashtag and replaces
-// username-like strings with links to the Twitter profile *if* a
-// valid profile is found.
+// Identifies hashtags and Twitter handle-like strings. Replaces
+// hashtags with links to a Twitter search for the found hashtag and
+// replaces handle-like strings with links to the Twitter profile
+// *if* a valid profile is found.
 // =================================================================
 const twitterize = async(content) => {
   let newContent = content.replace(hashtagRegexp, hashtagSearch);
 
   let matches = newContent.match(/@([a-z0-9_]+)/g);
-  let promiseArr = (matches || []).map((username) => {
-    const profile = `https://twitter.com/${ username.substr(1) }`;
+  let promiseArr = (matches || []).map((handle) => {
+    const profile = `https://twitter.com/${ handle.substr(1) }`;
     // // = CHECKPOINT 2, PART 2: UNCOMMENT THIS BLOCK ================
     // return beeline.startAsyncSpan({
     //   name: "check_twitter",
-    //   "app.twitter.username": username,
+    //   "app.twitter.handle": handle,
     // }, span => {
     // // =============================================================
       return rp({ uri: profile, resolveWithFullResponse: true }).then((resp) => {
-        newContent = newContent.replace(username, `<a href="${ profile }">${ username }</a>`);
+        newContent = newContent.replace(handle, `<a href="${ profile }">${ handle }</a>`);
         // // = CHECKPOINT 2, PART 2: UNCOMMENT THIS BLOCK ===============
         // beeline.addContext({ "app.twitter.response_status": resp.statusCode });
         // beeline.finishSpan(span);
