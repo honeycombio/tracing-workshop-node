@@ -1,5 +1,5 @@
 const HONEYCOMB_API_KEY = "e841bedc1eb9ffd93c4c958b74e2d877";
-const HONEYCOMB_DATASET = "prerun-workshop";
+const HONEYCOMB_DATASET = "workshop";
 
 const GCP_URL_TEMPLATE = "https://language.googleapis.com/v1/documents:analyzeSentiment?key"
 const GCP_API_KEY = "AIzaSyAXdTnJgZu0oMUb4I3VN2Mepx_KpXBB5RA"

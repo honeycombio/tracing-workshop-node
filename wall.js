@@ -1,5 +1,5 @@
 const HONEYCOMB_API_KEY = "e841bedc1eb9ffd93c4c958b74e2d877";
-const HONEYCOMB_DATASET = "prerun-workshop";
+const HONEYCOMB_DATASET = "workshop";
 
 const beeline = require("honeycomb-beeline")({
   writeKey: HONEYCOMB_API_KEY,
